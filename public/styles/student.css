@@ -1,0 +1,7 @@
+.table td,th {
+   text-align: center;
+}
+.table {
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 20px;
+}

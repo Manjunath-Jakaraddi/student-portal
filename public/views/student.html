@@ -1,0 +1,59 @@
+<div class="container">
+  <div ng-show="showtable" class="row col-md-offset-1 col-md-10" style="margin-top:100px">
+
+    <ul class="nav nav-tabs" role="tablist">
+
+      <li role="presentation" ng-class="{active:isSelected(1)}">
+        <a ng-click="select(1)" aria-controls="all menu" role="tab">CIE 1</a></li>
+
+      <li role="presentation" ng-class="{active:isSelected(2)}">
+        <a ng-click="select(2)" aria-controls="appetizers" role="tab">CIE 2</a></li>
+
+      <li role="presentation" ng-class="{active:isSelected(3)}">
+        <a ng-click="select(3)" aria-controls="mains" role="tab">CIE 3</a></li>
+
+      <li role="presentation" ng-class="{active:isSelected(4)}">
+        <a  ng-click="select(4)" aria-controls="desserts" role="tab">SEE</a></li>
+
+        <li role="presentation" ng-class="{active:true}">
+          <a  ng-click="select(4)" aria-controls="desserts" role="tab">ALL</a></li>
+
+    </ul>
+    <div class="tab-content">
+              <ul class="media-list tab-pane fade in active">
+              <h2 style="text-align:center">Semseter {{currentsemester}}</h2>
+                <li class="media">
+  <table class="table table-striped table-hover table-bordered">
+    <tr class="info">
+        <th>Subject</th>
+        <th>Subject Code</th>
+        <th>Theory ({{data.Subjects[0].CieMax.theory}})</th>
+        <th>Quiz ({{data.Subjects[0].CieMax.quiz}})</th>
+        <th>Total ({{data.Subjects[0].CieMax.total}})</th>
+    </tr>
+    <tr ng-repeat="subject in data.Subjects">
+        <td>{{subject.Subname}}</td>
+        <td>{{subject.Subcode}}</td>
+        <td>{{subject.CieMarks[0].theory}}</td>
+        <td>{{subject.CieMarks[0].quiz}}</td>
+        <td>{{subject.CieMarks[0].total}}</td>
+    </tr>
+    <tr ng-repeat="subject in data.Subjects">
+        <td>{{subject.Subname}}</td>
+        <td>{{subject.Subcode}}</td>
+        <td>{{subject.CieMarks[1].theory}}</td>
+        <td>{{subject.CieMarks[1].quiz}}</td>
+        <td>{{subject.CieMarks[1].total}}</td>
+    </tr><tr ng-repeat="subject in data.Subjects">
+        <td>{{subject.Subname}}</td>
+        <td>{{subject.Subcode}}</td>
+        <td>{{subject.CieMarks[2].theory}}</td>
+        <td>{{subject.CieMarks[2].quiz}}</td>
+        <td>{{subject.CieMarks[2].total}}</td>
+    </tr>
+  </table>
+</li>
+</ul>
+</div>
+  </div>
+</div>
