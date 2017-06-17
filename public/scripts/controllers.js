@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 angular.module('conFusionApp')
 
@@ -39,19 +39,59 @@ angular.module('conFusionApp')
 }])
 
 .controller('StudentController',['$scope','$location','AuthService','StudentService',function ($scope,$location,AuthService,StudentService) {
-    $scope.logout = function () {
+  $scope.logout = function () {
       AuthService.logoutuser();
       $location.path('/');
+    };
+
+  $scope.username = "";
+  $scope.currentsemester = 4;
+  $scope.showtable = true;
+  $scope.data = StudentService.getInfo().query({});
+  $scope.data.$promise.then(function (data) {
+    if(data) {
+      $scope.showtable=true;
+      $scope.dispdata = $scope.data[0].Semesters.filter(function (chain) {
+        return chain.SemNumber == 4;
+      })[0];
+      $scope.username = data[0].StudentCredentials.username;
+    }
+  });
+  $scope.semesters = [1,2,3,4,5,6,7,8];
+  $scope.changeSem = function (sem) {
+
+    $scope.currentsemester = sem;
+    $scope.dispdata = $scope.data[0].Semesters.filter(function (chain) {
+      return chain.SemNumber == $scope.currentsemester;
+    })[0];
+    if($scope.dispdata)
+      $scope.showtable=true;
+    else {
+      $scope.showtable=false;
+    }
+
   };
 
 
-  $scope.showtable = false;
-  $scope.data = StudentService.get({sem:4});
-  $scope.data.$promise.then(function (data) {
-    if(data)
-      $scope.showtable=true;
-  });
-  $scope.currentsemester = 4;
-  $scope.semesters = [1,2,3,4,5,6,7,8];
+$scope.tab = 1;
+  $scope.select = function (setTab) {
+  // if(setTab===2){
+  //   $scope.filtText = "appetizer";
+  // }
+  // else if(setTab===3) {
+  //   $scope.filtText = "mains";
+  // }
+  // else if(setTab===4) {
+  //   $scope.filtText = "dessert";
+  // }
+  // else {
+  //   $scope.filtText = "";
+  // }
+  $scope.tab = setTab;
+};
+$scope.isSelected = function (checkTab) {
+return ($scope.tab===checkTab);
+};
+
 }])
 ;

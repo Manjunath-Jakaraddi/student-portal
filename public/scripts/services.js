@@ -68,11 +68,14 @@ angular.module('conFusionApp')
 
 
     .service('StudentService',['$resource','BaseUrl',function ($resource,BaseUrl) {
-      var data = $resource(BaseUrl+'student/:sem', {sem: '@sem'}, {
-      update:{
-          method:'PUT'
-          }
-      });
-      return data;
+      this.getInfo = function () {
+        var data = $resource(BaseUrl+'student/:sem', {sem: '@sem'}, {
+        update:{
+            method:'PUT'
+            }
+        });
+        return data;
+      };
     }])
+
 ;

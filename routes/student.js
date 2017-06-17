@@ -7,7 +7,7 @@ var Students = require('../models/students');
 studentRouter = express.Router();
 studentRouter.use(bodyParser.json());
 
-studentRouter.route('/:sem')
+studentRouter.route('/')
 .all(Verify.verifyOrdinaryUser)
 .get(function (req,res,next) {
 Students.StudentProfile.find({StudentCredentials:req.decoded._doc._id})
@@ -15,28 +15,9 @@ Students.StudentProfile.find({StudentCredentials:req.decoded._doc._id})
 .populate('Semesters.Subjects')
 .exec(function (err,result) {
   if(err) throw err;
-  if(result.length>0) {
-    var data = result[0].Semesters.filter(function (chain) {
-      return chain.SemNumber == req.params.sem;
-    })[0];
-    res.json(data);
-  }
-  else {
-    res.json(result);
-  }
+  res.json(result);
 });
-  /*
-  Students.StudentProfile.find({})
-  .populate('Semesters.Subjects')
-  .exec(function (err,sub) {
-    if(err) throw err;
-    var result = sub.filter(function (chain) {
-      return chain.StudentCredentials == req.decoded._doc._id ;
-    });
-    res.json(result)
-  });
 
-  */
 })
 .post(function (req,res,next) {
   Students.Subject.create(req.body,function (err,sub) {
@@ -68,9 +49,10 @@ studentRouter.route('/haha')
 });
 
 
-studentRouter.route('/:indi')
+studentRouter.route('/createSemester')
+.all(Verify.verifyOrdinaryUser)
 .get(function (req,res,next) {
-  Students.StudentProfile.findById(req.params.indi)
+  Students.StudentProfile.find({})
   .populate('StudentCredentials')
   .populate('Semesters.Subjects')
   .exec(function (err,sub) {
@@ -79,16 +61,15 @@ studentRouter.route('/:indi')
   });
 })
 .post(function (req,res,next) {
-  Students.StudentProfile.findById(req.params.indi)
+  Students.StudentProfile.find({StudentCredentials:req.decoded._doc._id})
   .populate('StudentCredentials')
   .populate('Semesters.Subjects')
   .exec(function (err,sub) {
-    if(err) throw err;
-      sub.Semesters[0].Subjects.push(req.body.subid);
-      sub.save(function (err,sub) {
-        if(err) throw err;
-        res.json(sub);
-      });
+    sub[0].Semesters.push(req.body);
+    sub[0].save(function (err,sub) {
+      if(err) throw err;
+      res.json(sub);
+    })
   });
 });
 

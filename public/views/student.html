@@ -1,59 +1,124 @@
-<div class="container">
-  <div ng-show="showtable" class="row col-md-offset-1 col-md-10" style="margin-top:100px">
+<div class="navbar-wrapper">
+   <div class="container-fluid">
+       <nav class="navbar navbar-fixed-top">
+           <div class="container">
+               <div class="navbar-header">
+                   <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                   <span class="sr-only">Toggle navigation</span>
+                   <span class="icon-bar"></span>
+                   <span class="icon-bar"></span>
+                   <span class="icon-bar"></span>
+                   </button>
+                   <a class="navbar-brand" href="rvce.edu.in"><img src="http://www.rvce.edu.in/sites/default/files/logo_0.png" alt="Home"></a>
+               </div>
+               <div id="navbar" class="navbar-collapse collapse">
+                   <ul class="nav navh navbar-nav">
+                       <li class="active"><a href="#" class="">Home</a></li>
 
-    <ul class="nav nav-tabs" role="tablist">
 
-      <li role="presentation" ng-class="{active:isSelected(1)}">
-        <a ng-click="select(1)" aria-controls="all menu" role="tab">CIE 1</a></li>
 
-      <li role="presentation" ng-class="{active:isSelected(2)}">
-        <a ng-click="select(2)" aria-controls="appetizers" role="tab">CIE 2</a></li>
+                       <li class=" dropdown">
+                           <a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Semesters <span class="caret"></span></a>
+                           <ul class="dropdown-menu">
+                               <li class=" dropdown" ng-repeat="sem in semesters">
+                                   <a ng-click="changeSem(sem)" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{sem}}</a>
+                               </li>
+                           </ul>
+                       </li>
 
-      <li role="presentation" ng-class="{active:isSelected(3)}">
-        <a ng-click="select(3)" aria-controls="mains" role="tab">CIE 3</a></li>
-
-      <li role="presentation" ng-class="{active:isSelected(4)}">
-        <a  ng-click="select(4)" aria-controls="desserts" role="tab">SEE</a></li>
-
-        <li role="presentation" ng-class="{active:true}">
-          <a  ng-click="select(4)" aria-controls="desserts" role="tab">ALL</a></li>
-
-    </ul>
-    <div class="tab-content">
-              <ul class="media-list tab-pane fade in active">
-              <h2 style="text-align:center">Semseter {{currentsemester}}</h2>
-                <li class="media">
-  <table class="table table-striped table-hover table-bordered">
-    <tr class="info">
-        <th>Subject</th>
-        <th>Subject Code</th>
-        <th>Theory ({{data.Subjects[0].CieMax.theory}})</th>
-        <th>Quiz ({{data.Subjects[0].CieMax.quiz}})</th>
-        <th>Total ({{data.Subjects[0].CieMax.total}})</th>
-    </tr>
-    <tr ng-repeat="subject in data.Subjects">
-        <td>{{subject.Subname}}</td>
-        <td>{{subject.Subcode}}</td>
-        <td>{{subject.CieMarks[0].theory}}</td>
-        <td>{{subject.CieMarks[0].quiz}}</td>
-        <td>{{subject.CieMarks[0].total}}</td>
-    </tr>
-    <tr ng-repeat="subject in data.Subjects">
-        <td>{{subject.Subname}}</td>
-        <td>{{subject.Subcode}}</td>
-        <td>{{subject.CieMarks[1].theory}}</td>
-        <td>{{subject.CieMarks[1].quiz}}</td>
-        <td>{{subject.CieMarks[1].total}}</td>
-    </tr><tr ng-repeat="subject in data.Subjects">
-        <td>{{subject.Subname}}</td>
-        <td>{{subject.Subcode}}</td>
-        <td>{{subject.CieMarks[2].theory}}</td>
-        <td>{{subject.CieMarks[2].quiz}}</td>
-        <td>{{subject.CieMarks[2].total}}</td>
-    </tr>
-  </table>
-</li>
-</ul>
+                   </ul>
+                   <ul class="nav navbar-nav pull-right">
+                       <li class=" dropdown"><a href="#" class="dropdown-toggle active" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Signed in as   <span>   {{username}}</span><span class="caret"></span></a>
+                           <ul class="dropdown-menu">
+                               <li><a href="#">Change Password</a></li>
+                               <li><a href="#">My Profile</a></li>
+                           </ul>
+                       </li>
+                       <li class=""><a ng-click="logout()">Logout</a></li>
+                   </ul>
+               </div>
+           </div>
+       </nav>
+   </div>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="container">
+  <div class="row" style="margin-top:100px">
+      <h1>Semester {{currentsemester}} </h1>
+  </div>
+
+  <div ng-show="showtable" class="row col-md-offset-1 col-md-10">
+    <ul class="nav nav-tabs" role="tablist">
+      <li role="presentation" ng-class="{active:isSelected(1)}">
+      <a ng-click="select(1)" aria-controls="all menu" role="tab">CIE1</a></li>
+      <li role="presentation" ng-class="{active:isSelected(2)}">
+      <a ng-click="select(2)" aria-controls="appetizers" role="tab">CIE2</a></li>
+      <li role="presentation" ng-class="{active:isSelected(3)}">
+      <a ng-click="select(3)" aria-controls="mains" role="tab">CIE3</a></li>
+      <li role="presentation" ng-class="{active:isSelected(4)}">
+      <a  ng-click="select(4)" aria-controls="desserts" role="tab">LAB</a></li>
+      <li role="presentation" ng-class="{active:isSelected(5)}">
+      <a  ng-click="select(5)" aria-controls="desserts" role="tab">SEE</a></li>
+      <li role="presentation" ng-class="{active:isSelected(6)}">
+      <a  ng-click="select(6)" aria-controls="desserts" role="tab">ALL</a></li>
+    </ul>
+
+    <div class="tab-content">
+      <ul class="media-list tab-pane fade in active">
+        <li>
+          <table class="table table-striped table-hover table-bordered">
+            <tr class="info">
+                <th>Subject</th>
+                <th>Subject Code</th>
+                <th>Theory ({{dispdata.Subjects[0].CieMax.theory}})</th>
+                <th>Quiz ({{dispdata.Subjects[0].CieMax.quiz}})</th>
+                <th>Total ({{dispdata.Sub[0].CieMax.total}})</th>
+            </tr>
+            <tr ng-repeat="subject in dispdata.Subjects">
+                <td>{{subject.Subname}}</td>
+                <td>{{subject.Subcode}}</td>
+                <td>{{subject.CieMarks[tab-1].theory}}</td>
+                <td>{{subject.CieMarks[tab-1].quiz}}</td>
+                <td>{{subject.CieMarks[tab-1].total}}</td>
+            </tr>
+            <!-- <tr ng-repeat="subject in dispdata.Subjects">
+                <td>{{subject.Subname}}</td>
+                <td>{{subject.Subcode}}</td>
+                <td>{{subject.CieMarks[1].theory}}</td>
+                <td>{{subject.CieMarks[1].quiz}}</td>
+                <td>{{subject.CieMarks[1].total}}</td>
+            </tr>
+            <tr ng-repeat="subject in dispdata.Subjects">
+                <td>{{subject.Subname}}</td>
+                <td>{{subject.Subcode}}</td>
+                <td>{{subject.CieMarks[2].theory}}</td>
+                <td>{{subject.CieMarks[2].quiz}}</td>
+                <td>{{subject.CieMarks[2].total}}</td>
+            </tr> -->
+          </table>
+        </li>
+      </ul>
+    </div>
   </div>
 </div>
